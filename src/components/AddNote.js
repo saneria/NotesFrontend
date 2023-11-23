@@ -1,57 +1,67 @@
 import React, { useState } from "react";
+import { jsPDF } from 'jspdf';
 
-const AddNote = ({ onAddNote }) => {
-  const [note, setNote] = useState("");
-  const [error, setError] = useState(null);
-  var data = localStorage.getItem("data");
-  console.log(data);
-
-  const handleInputChange = (e) => {
-    setNote(e.target.value);
-  };
+const AddNote = () => {
+  const [notes, setNote] = useState("");
+  const user_id = localStorage.getItem('data');
+  const [loading, setLoading] = useState(false);
 
   const handleAddNote = async () => {
-    try {
-      if (note.trim() !== "") {
-        console.log(note);
+    setLoading(true);
 
-        const response = await fetch("http://appnote.test/api/notes", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(),
-        });
+    const response = await fetch("http://appnote.test/api/notes", {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        notes,
+        user_id,
+      }),
+    });
 
-        if (!response.ok) {
-          throw new Error(`Failed to add note. Status: ${response.status}`);
-        }
+    const responseData = await response.json();
+    console.log(responseData);
+    alert("Note added successfully!");
 
-        const data = await response.json();
+    if (!response.ok) {
+      alert("Failed to add note");
+    }
 
-        // Update the UI by calling the onAddNote callback with the data from the server
-        onAddNote(data);
+    setLoading(false);
+  };
 
-        // Clear the input field
-        setNote("");
-        setError(null);
-      }
-    } catch (error) {
-      console.error("Error adding note:", error);
-      setError("Failed to add note. Please try again.");
+  const handleNoteChange = (event) => {
+    setNote(event.target.value);
+  };
+
+  const handleSavePDF = () => {
+    const fileName = prompt("Enter a name for your PDF file (without extension):");
+
+    if (fileName) {
+      const pdf = new jsPDF();
+      pdf.text(notes, 10, 10);
+      pdf.save(`${fileName}.pdf`);
     }
   };
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Type your note..."
-        value={note}
-        onChange={handleInputChange}
-      />
-      <button onClick={handleAddNote}>Add Note</button>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      <h2>Add Note</h2>
+      <textarea
+        rows="4"
+        cols="50"
+        placeholder="Enter your note"
+        value={notes}
+        onChange={handleNoteChange}
+      ></textarea>
+      <br />
+      <button onClick={handleAddNote} disabled={loading}>
+        {loading ? "Adding..." : "Add Note"}
+      </button>
+      <br />
+      <button onClick={handleSavePDF}>Save as PDF</button>
     </div>
   );
 };

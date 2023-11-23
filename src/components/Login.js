@@ -27,9 +27,9 @@ function Login() {
     if (!data.ok) {
       setError(data.message);
     }
-
-    const userid = data.user.id;
-    localStorage.setItem('data',userid);
+    //after login ang  id is kuhaon for add note
+    const user_id = data.user.id;
+    localStorage.setItem('data', user_id);
     
     navigate("/addnote");
   };

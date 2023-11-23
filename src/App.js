@@ -20,7 +20,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        {/* Pass the onAddNote function to the AddNote component */}
         <Route path="/addnote" element={<AddNote onAddNote={handleAddNote} />} />
       </Routes>
     </>
