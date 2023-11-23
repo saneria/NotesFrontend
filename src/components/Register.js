@@ -1,41 +1,43 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-function Login() {
+function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const validateUser = async () => {
-    const response = await fetch("http://appnote.test/api/login", {
+  const registerUser = async () => {
+    const response = await fetch("http://appnote.test/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        name,
         email,
-        password
+        password,
       }),
     });
 
     const data = await response.json();
 
-    console.log(data);
     if (!data.ok) {
       setError(data.message);
     }
-
-    const userid = data.user.id;
-    localStorage.setItem('data',userid);
-    
-    navigate("/addnote");
+    alert("Account created succefully");
+    navigate("/");
   };
 
   return (
     <div>
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Full Name"
+      />
       <input
         type="text"
         value={email}
@@ -48,13 +50,10 @@ function Login() {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
       />
-      <Link to = "/register" >Don't have account?</Link>
-      <button onClick={validateUser}>Login</button>
+      <button onClick={registerUser}>Register</button>
       {error && <p>{error}</p>}
     </div>
-
-
   );
 }
 
-export default Login;
+export default Register;
