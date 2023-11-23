@@ -5,10 +5,17 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState(""); // Step 1
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const registerUser = async () => {
+    // Step 3: Validate password and confirm password
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     const response = await fetch("http://appnote.test/api/user", {
       method: "POST",
       headers: {
@@ -25,9 +32,11 @@ function Register() {
 
     if (!data.ok) {
       setError(data.message);
+    } else {
+
+      navigate("/");
     }
-    alert("Account created succefully");
-    navigate("/");
+    alert("Account created successfully");
   };
 
   return (
@@ -49,6 +58,13 @@ function Register() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"
+      />
+      {/* Step 2: Add confirm password input field */}
+      <input
+        type="password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        placeholder="Confirm Password"
       />
       <button onClick={registerUser}>Register</button>
       {error && <p>{error}</p>}
