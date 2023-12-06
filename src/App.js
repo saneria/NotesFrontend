@@ -1,29 +1,36 @@
-import "./App.css";
-import React, { useState } from "react";
-import { Route, Routes } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
-import AddNote from "./components/AddNote";
+import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Login from './components/Login';
+import Register from './components/Register';
+import AddNote from './components/AddNote';
+import Sidebar from './components/Sidebar';
+import Notes from './components/Notes';
 
-function App() {
-  // State to store the notes
+const App = () => {
   const [notes, setNotes] = useState([]);
 
-  // Function to handle the addition of notes
   const handleAddNote = (newNote) => {
-    // Update the notes state with the new note
     setNotes([...notes, newNote]);
   };
 
   return (
-    <>
+    <div>
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/addnote" element={<AddNote onAddNote={handleAddNote} />} />
+        <Route
+          path="/addnote"
+          element={<AddNote onAddNote={handleAddNote} />}
+        />
+        <Route path="/sidebar" element={<Sidebar notes={notes} />} />
+        <Route path="/viewnote" element={<Notes />} />
+
+
+
+   
       </Routes>
-    </>
+    </div>
   );
-}
+};
 
 export default App;
