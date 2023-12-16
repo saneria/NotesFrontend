@@ -29,6 +29,7 @@ const Notes = () => {
   useEffect(() => {
     fetchNote();
   }, []);
+  
 
   const handleEditButtonClick = (noteId) => {
     const noteToEdit = notesData.find((note) => note.note_id === noteId);

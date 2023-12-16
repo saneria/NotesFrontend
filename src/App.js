@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Login from './components/Login';
 import Register from './components/Register';
 import AddNote from './components/AddNote';
-import Sidebar from './components/Sidebar';
-import Notes from './components/Notes';
+// import Notes from './components/Notes';
+import View from './components/View';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -22,8 +22,7 @@ const App = () => {
           path="/addnote"
           element={<AddNote onAddNote={handleAddNote} />}
         />
-        <Route path="/sidebar" element={<Sidebar notes={notes} />} />
-        <Route path="/viewnote" element={<Notes />} />
+        <Route path="/view" element={<View />} />
 
 
 
