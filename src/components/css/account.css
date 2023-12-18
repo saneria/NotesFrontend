@@ -9,6 +9,11 @@
     overflow: hidden;
   }
   
+  .wrapper {
+    background-color: #424242;
+      border: none;
+      display: flex;
+    }
   .container {
     position: relative;
     width: 100vw;
@@ -34,15 +39,15 @@
   
 
   .img-logo{
-    padding: 50px;
+    padding: 70px;
 
   }
   
   .img img {
-    width: 100%;
+    width: 80%;
     max-width: 450px;
-    height: 75%;
-    border-radius: 50%;
+    height: auto;
+    border-radius: 30%;
     margin-right: 90px;
   }
 
@@ -195,7 +200,7 @@
   .input {
     width: 90%;
     padding: 8px;
-    border-radius: 25px;
+    border-radius: 25px; 
     font-size: 1rem;
     border: 2px solid #ccc; 
     margin-bottom: 10px; 
@@ -211,6 +216,8 @@
         border-color: #66afe9; 
         box-shadow: 0 0 8px rgba(102, 175, 233, 0.6); 
     }
+
+  
 
     
 }

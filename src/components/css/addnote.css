@@ -6,51 +6,33 @@
       border: none;
       display: flex;
     }
-    
-    .main,
+
+
     .sidebar {
-      border: 1px solid black;
-      padding: 15px;
-    }
-    h2{
-      text-align: center;
-    }
-    .main {
-      width: 80%;
-      height: auto;
-    background-color: #424242;
-    padding: 70px; 
-    position: relative;
-    display: flex;
-    }
-    .maincon{
-      flex: 1;
-      background-color: white;
-      border-radius: 15px;
-      height: 95%;
-      padding: 20px;
-    }
-    .sidebar {
-    background-color: #e0e0e0;
-      width: 20%;
+    background-color:rgb(57, 62, 70);;
+      /* width: auto; */
       height: 100vh;
       position: -webkit-sticky;
       position: sticky;
       top: 0;
     }
+
     ul{
       list-style: none;
       margin-bottom: 10px;
     }
+
     li{
       display: flex;
     }
+
     .search{
       width: 100%;
       padding: 6px; 
       margin-bottom: 10px;
       border-radius: 10px;
     }
+
     faSearch{
       position: absolute;
       top: 50%;
@@ -58,6 +40,7 @@
       transform: translateY(-50%);
       color: #999;
     }
+
     .title{
       border:none;
       border-bottom: 2px solid #7b7e81;
@@ -65,6 +48,7 @@
       outline: none;
       font-size: 20px;
     }
+
     [placeholder]:focus::-webkit-input-placeholder {
       transition: text-indent 0.4s 0.4s ease; 
       text-indent: -100%;
@@ -83,3 +67,68 @@
       align-items: center; /* Center the content vertically */
       margin-right: 25px;
     }
+
+    .notes-heading {
+      color: #ffffff; 
+      font-size: 2rem; 
+      margin-top: 5px;
+      margin-bottom: 20px; 
+      text-align: center; 
+      text-transform: uppercase; 
+      letter-spacing: 2px; 
+      font-weight: bold; 
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); 
+    }
+
+    .delete-icon {
+      margin-top: 20px;
+      margin-right: 5px;
+      color: white;
+    }
+
+    .trash-icon {
+      margin-top: 75%;
+      transition: opacity 0.3s ease-in-out;
+      color: white;
+      opacity: 1;
+      position: fixed;
+    }
+    
+    .trash-icon:hover {
+      opacity: 0.8;
+      color: #010101; /* Set the desired hover color */
+    }
+
+    .style-side {
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 8px;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      position: relative;
+      z-index: 1;
+      
+      /* Additional styles for text inside the element */
+      color: #333;
+      font-family: 'Nunito Sans', sans-serif;
+    }
+    
+    .style-side:hover {
+      transform: scale(1.05) rotateX(5deg) rotateY(5deg); /* Add a slight scale and 3D rotation effect on hover */
+      box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.7); /* Enhance box-shadow on hover for a stronger 3D effect */
+      z-index: 2; /* Bring the element to the forefront */
+    }
+
+    .sidebar-style {
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      background: linear-gradient(135deg, #393e46, rgba(224, 224, 224, 0.086)); /* Add a gradient background for a glossy look */
+      position: relative;
+      z-index: 1;
+    
+      /* Additional styles for text inside the element */
+      color: #333;
+      font-family: 'Nunito Sans', sans-serif;
+    }
+    

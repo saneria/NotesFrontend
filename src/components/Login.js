@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Container, InputGroup, FormControl, Button } from "react-bootstrap";
+import { Container, InputGroup, Form, Button } from "react-bootstrap";
 import { MdEmail } from "react-icons/md";
 import Inkbox from "./logo/logo.png";
 import "./css/account.css";
@@ -97,9 +97,9 @@ function Login() {
           <div className="new">
             <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon1">
-                <MdEmail />
+                <MdEmail />                                         
               </InputGroup.Text>
-              <FormControl
+              <Form.Control
                 className="input"
                 type="email"
                 value={email}
@@ -115,7 +115,7 @@ function Login() {
               <InputGroup.Text id="basic-addon1">
                 <RiLockPasswordFill />
               </InputGroup.Text>
-              <FormControl
+              <Form.Control
                 className="input"
                 type="password"
                 value={password}

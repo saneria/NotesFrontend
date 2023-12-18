@@ -1,0 +1,103 @@
+.wrapper {
+    border: none;
+    display: flex;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  .main {
+    width: 210%;
+    /* height: 115%; */
+    background-color: rgb(57, 62, 70);
+    padding: 40px; 
+    position: relative;
+    display: flex;
+  }
+  
+  .maincon {
+    background-color: #f8f8f8; 
+    border: 1px solid #ddd; 
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    width: 350%;
+
+
+}
+
+
+.maincon:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin-top: 20px;
+}
+
+
+.maincon h2 {
+    color: #333;
+    font-size: 1.5em; 
+    margin-bottom: 15px;
+}
+
+.maincon p {
+    color: #000000; /* Slightly darker text color for paragraphs */
+    font-size: 1.2em; /* Slightly larger font size for readability */
+    line-height: 1.5; /* Set line height for better readability */
+}
+
+  
+  .title {
+    border: none;
+    border-bottom: 2px solid #7b7e81;
+    padding: 5px 10px;
+    outline: none;
+    font-size: 12px;
+  }
+  
+  ul {
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  
+  li {
+    display: flex;
+  }
+
+  .add-save {
+    position: absolute;
+    margin-right: 71%;
+    margin-bottom: 73%;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: none; /* Remove the border */
+    color: #fff; /* Example text color, change as needed */
+    border-radius: 5px; /* Optional: Add border-radius for rounded corners */
+
+
+}
+
+.add-save:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-color: #2980b9; /* Change the background color on hover */
+
+}
+
+
+/* Optional: Adjust the transition duration and box-shadow values based on your preference */
+
+.savepdf {
+    position: absolute;
+    margin-top: 70%;
+    margin-left: 80%;
+}
+
+.add-icon {
+    margin-top: 5px;
+}
+
+

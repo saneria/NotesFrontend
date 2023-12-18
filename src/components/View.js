@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import AddNote from "./AddNote";
+import "./css/addnote.css";
+import { ImSearch } from "react-icons/im";
+import { MdDelete } from "react-icons/md";
+import { HiTrash, HiOutlineTrash } from "react-icons/hi";
 
 const View = () => {
   const [notesData, setNoteData] = useState([]);
@@ -9,6 +13,10 @@ const View = () => {
   const [deletedNotes, setDeletedNotes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showDeletedNotes, setShowDeletedNotes] = useState(false);
+  const [selectedNotes, setSelectedNotes] = useState([]);
+  const [deleteButtonIndex, setDeleteButtonIndex] = useState(null);
+  const [deleteButtonVisible, setDeleteButtonVisible] = useState(false);
 
   const fetchNote = async () => {
     const user_id = localStorage.getItem("data");
@@ -89,120 +97,247 @@ const View = () => {
     note.notes_title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handleNoteCheckboxChange = (noteId) => {
+    const isSelected = selectedNotes.includes(noteId);
+
+    if (isSelected) {
+      // If the note is already selected, remove it from the selectedNotes array
+      setSelectedNotes(selectedNotes.filter((id) => id !== noteId));
+    } else {
+      // If the note is not selected, add it to the selectedNotes array
+      setSelectedNotes([...selectedNotes, noteId]);
+    }
+  };
+
+  const handleMouseEnter = (index) => {
+    setDeleteButtonIndex(index);
+    setDeleteButtonVisible(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDeleteButtonVisible(false);
+  };
+
+  const deleteIconSize = 24;
+  const trashIconSize = 30;
+
   return (
     <div>
       <div>
-        {/* Search input */}
-        <input
-          type="text"
-          placeholder="Search notes"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          style={{ marginBottom: "10px" }}
-        />
-
-        <div style={{ display: "flex" }}>
+        <div className="sidebar" style={{ display: "flex" }}>
           {/* Active notes section */}
           <div
+            className="sidebar-style"
             style={{
               border: "1px solid #ccc",
-              borderRadius: "5px",
               padding: "10px",
-              width: "250px",
-              height: "688px",
-              overflowY: "auto",
+              width: "20%",
+              height: "auto",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
+              backgroundColor: "rgb(46,50,56)",
             }}
           >
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-            <h2>Notes</h2>
+            <h2 className="notes-heading">Notes</h2>
+
+            {/* Search input */}
+            <input
+              type="text"
+              placeholder="Search notes"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={{
+                marginBottom: "10px",
+                border: "1px solid #ccc",
+                padding: "8px",
+                width: "100%",
+                height: "auto",
+                boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
+                backgroundColor: "rgb(249,250,250)",
+                borderRadius: "30px",
+              }}
+            />
+            <ImSearch
+              style={{
+                marginLeft: "-27px",
+                position: "absolute",
+                zIndex: 1,
+                marginTop: "9px",
+              }}
+            />
+
             {filteredNotes.map((note, index) => (
               <div
+                className="style-side"
                 key={index}
                 style={{
+                  color: "rgb(249,250,250)",
+                  marginTop: "30px",
                   marginBottom: "20px",
                   borderBottom: "1px solid #ccc",
                   paddingBottom: "10px",
                   cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  boxShadow: "10px 10px 30px rgba(0, 0, 0, 0.1)",
+                  borderRadius: "5px",
+                  position: "relative",
+                  transition: "transform 0.3s ease-in-out",
+                  transform:
+                    deleteButtonIndex === index
+                      ? "translateX(-30px)"
+                      : "translateX(0)",
                 }}
+                onMouseEnter={() => handleMouseEnter(index)}
+                onMouseLeave={handleMouseLeave}
                 onClick={() => {
                   setSelectedNote(note);
                   setEditMode(false);
                 }}
               >
-                <strong>{note.notes_title}</strong> <br />
-                <strong>Created At:</strong>{" "}
-                {new Intl.DateTimeFormat("en-US", {
-                  dateStyle: "medium",
-                  timeStyle: "medium",
-                }).format(new Date(note.created_at))}{" "}
-                <br />
-                <strong>Updated At:</strong>{" "}
-                {new Intl.DateTimeFormat("en-US", {
-                  dateStyle: "medium",
-                  timeStyle: "medium",
-                }).format(new Date(note.updated_at))}{" "}
-                <br />
-                {/* Add delete button here */}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation(); // Prevent the click event from propagating to the parent div
-                    handleDeleteButtonClick(note.note_id);
+                {/* Checkbox */}
+                <input
+                  type="checkbox"
+                  checked={selectedNotes.includes(note.note_id)}
+                  onChange={() => handleNoteCheckboxChange(note.note_id)}
+                  style={{ marginRight: "10px" }}
+                />
+                <div>
+                  <strong>{note.notes_title} </strong> <br />
+                  <span style={{ fontSize: "12px" }}>
+                    {new Intl.DateTimeFormat("en-US", {
+                      dateStyle: "medium",
+                      timeStyle: "medium",
+                    }).format(new Date(note.updated_at))}
+                  </span>{" "}
+                  <br />
+                  {/* Add delete button here */}
+                  {deleteButtonIndex === index && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent the click event from propagating to the parent div
+                        handleDeleteButtonClick(note.note_id);
+                      }}
+                      style={{
+                        position: "absolute",
+                        top: "0",
+                        right: "0",
+                        visibility: deleteButtonVisible ? "visible" : "hidden",
+                        backgroundColor: "transparent",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                    >
+                      <MdDelete size={deleteIconSize} className="delete-icon" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            {/* Toggle button for deleted notes */}
+            <div className="trash-icon" style={{ position: "relative" }}>
+              <button
+                onClick={() => setShowDeletedNotes(!showDeletedNotes)}
+                style={{
+                  position: "absolute",
+                  border: "none",
+                  bottom: "0",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "3px", // Adjust the padding as needed
+                  cursor: "pointer",
+                  display: "flex",
+                  borderRadius: "10px",
+                  backgroundColor: "transparent", // Remove the background color
+                }}
+                className="trash-icon" // Add the class to apply hover effect
+              >
+                {showDeletedNotes ? (
+                  <HiOutlineTrash size={trashIconSize} />
+                ) : (
+                  <HiTrash size={trashIconSize} />
+                )}
+                {showDeletedNotes ? (
+                  <span
+                    style={{
+                      marginLeft: "3px",
+                      fontWeight: "bold",
+                      fontFamily: "Nunito Sans",
+                      fontSize: "1.2rem",
+                      color: "white", // Set font color to white
+                    }}
+                  >
+                    Hide Trash
+                  </span>
+                ) : (
+                  <span
+                    style={{
+                      marginLeft: "3px",
+                      fontWeight: "bold",
+                      fontFamily: "Nunito Sans",
+                      fontSize: "1.2rem",
+                      color: "white", // Set font color to white
+                    }}
+                  >
+                    Trash
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Deleted notes section */}
+          {showDeletedNotes && (
+            <div
+              style={{
+                padding: "10px",
+                width: "20%",
+                height: "auto",
+              }}
+            >
+              <h2>Deleted Notes</h2>
+              {deletedNotes.map((deletedNote, index) => (
+                <div
+                  key={index}
+                  style={{
+                    marginBottom: "20px",
+                    borderBottom: "1px solid #ccc",
+                    paddingBottom: "10px",
+                    cursor: "pointer",
                   }}
                 >
-                  Delete
-                </button>
-              </div>
-            ))}
-          </div>
-
-          <div
-            style={{
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              padding: "10px",
-              width: "250px",
-              height: "688px",
-              overflowY: "auto",
-            }}
-          >
-            <h2>Deleted Notes</h2>
-            {deletedNotes.map((deletedNote, index) => (
-              <div
-                key={index}
-                style={{
-                  marginBottom: "20px",
-                  borderBottom: "1px solid #ccc",
-                  paddingBottom: "10px",
-                  cursor: "pointer",
-                }}
-              >
-                <strong>Note ID:</strong> {deletedNote.note_id} <br />
-                <strong>Note Title:</strong> {deletedNote.notes_title} <br />
-                <strong>Notes:</strong> {deletedNote.notes} <br />
-                <strong>Deleted At:</strong>{" "}
-                {new Intl.DateTimeFormat("en-US", {
-                  dateStyle: "medium",
-                  timeStyle: "medium",
-                }).format(new Date(deletedNote.updated_at))}
-                <br />
-                <button
-                  onClick={() => handleRestoreButtonClick(deletedNote.note_id)}
-                >
-                  Restore
-                </button>
-              </div>
-            ))}
-          </div>
+                  <strong>Note Title:</strong> {deletedNote.notes_title} <br />
+                  <strong>Deleted At:</strong>{" "}
+                  {new Intl.DateTimeFormat("en-US", {
+                    dateStyle: "medium",
+                    timeStyle: "medium",
+                  }).format(new Date(deletedNote.updated_at))}
+                  <br />
+                  <button
+                    onClick={() =>
+                      handleRestoreButtonClick(deletedNote.note_id)
+                    }
+                  >
+                    Restore
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* display for selecting specific note  */}
-          {selectedNote && !editMode && (
+          {selectedNote && !editMode && !showDeletedNotes && (
             <AddNote
               selectedNote={selectedNote}
               updateSelectedNote={updateSelectedNote}
             />
           )}
+
           {/* display for adding note */}
-          {!selectedNote && !editMode && (
+          {!selectedNote && !editMode && !showDeletedNotes && (
             <AddNote updateSelectedNote={updateSelectedNote} />
           )}
         </div>

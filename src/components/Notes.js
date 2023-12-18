@@ -12,6 +12,7 @@ const Notes = () => {
   const navigate = useNavigate();
   
 
+
   const fetchNote = async () => {
     const user_id = localStorage.getItem("data");
 

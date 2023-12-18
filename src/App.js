@@ -5,6 +5,7 @@ import Register from './components/Register';
 import AddNote from './components/AddNote';
 // import Notes from './components/Notes';
 import View from './components/View';
+import ViewProfile from './components/ViewProfile';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -23,6 +24,7 @@ const App = () => {
           element={<AddNote onAddNote={handleAddNote} />}
         />
         <Route path="/view" element={<View />} />
+        <Route path="/profile" element={<ViewProfile />} />
 
 
 

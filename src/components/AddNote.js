@@ -3,6 +3,13 @@ import { jsPDF } from "jspdf";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from "react-router-dom";
+import "./css/style.css";
+import { TbLogout2 } from "react-icons/tb";
+import { FaRegUser } from "react-icons/fa";
+import { RiAccountCircleFill } from "react-icons/ri";
+import { IoAddCircleSharp } from "react-icons/io5";
+import { MdSave } from "react-icons/md";
+import { HiSave } from "react-icons/hi";
 
 const AddNote = ({ selectedNote, updateSelectedNote }) => {
   const [notes, setNotes] = useState("");
@@ -10,6 +17,7 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
   const user_id = localStorage.getItem("data");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
 
   // setting initial value if note is selected
   useEffect(() => {
@@ -115,6 +123,14 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
     pdf.save(`${notes_title}.pdf`);
   };
 
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("data");
     navigate("/");
@@ -122,55 +138,207 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
 
   return (
     <div className="wrapper">
-      <div className="sidebar">
-        <h2>Add Note</h2>
-        <input
-          type="text"
-          placeholder="Enter note title"
-          value={notes_title}
-          onChange={(e) => setTitle(e.target.value)}
-          disabled={loading}
-        />
-        <br />
-        <ReactQuill
-          theme="snow"
-          value={notes}
-          onChange={setNotes}
-          modules={{
-            toolbar: [
-              ["bold", "italic", "underline"], 
-              [{ header: 1 }, { header: 2 }], 
-              [{ list: "ordered" }, { list: "bullet" }],
-              [{ indent: "-1" }, { indent: "+1" }], 
-              [{ size: ["small", false, "large", "huge"] }], 
-              [{ font: [] }],
-              [{ align: [] }],
-              ["clean"], 
-              ["checkbox"], 
-            ],
+      <div className="main" style={{ position: "relative" }}>
+        <RiAccountCircleFill
+          className="profile-icon"
+          style={{
+            position: "absolute",
+            top: "30px",
+            right: "70px",
+            cursor: "pointer",
+            width: "50px",
+            height: "80px",
           }}
-          readOnly={loading}
+          onClick={toggleDropdown}
         />
-        <br />
-        {!selectedNote && (
-          <button onClick={handleAddNote} disabled={loading}>
-            {loading ? "Adding..." : "Add Note"}
-          </button>
+        {showDropdown && (
+          <div
+            style={{
+              position: "absolute",
+              top: "50px",
+              right: "-1px",
+              borderRadius: "5px",
+              boxShadow: "0 2px 4px rgba(0,0,0,.1)",
+              zIndex: 1,
+            }}
+          >
+            <ul style={{ listStyle: "none" }}>
+              <li>
+                <button
+                  onClick={handleProfile}
+                  disabled={loading}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "8px 10px",
+                    border: "none",
+                    borderRadius: "5px",
+                    backgroundColor: "black", 
+                    color: "#fff", 
+                    cursor: "pointer",
+                    transition: "background-color 0.3s",
+                    outline: "none", 
+                  }}
+                >
+                  <FaRegUser
+                    style={{ fontSize: "1.2em", marginRight: "8px" }}
+                  />
+                </button>
+              </li>
+              <li>
+                <br />
+                <button
+                  onClick={handleLogout}
+                  disabled={loading}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    padding: "8px 10px",
+                    border: "none",
+                    borderRadius: "5px",
+                    backgroundColor: "black", // You can change the background color
+                    color: "#fff", // You can change the text color
+                    cursor: "pointer",
+                    transition: "background-color 0.3s",
+                    outline: "none", // Remove default button outline
+                  }}
+                >
+                  <TbLogout2 style={{ fontSize: "1.2em" }} />
+                </button>
+              </li>
+            </ul>
+          </div>
         )}
-        {selectedNote && (
-          <button onClick={handleUpdateNote} disabled={loading}>
-            {loading ? "Updating..." : "Save"}
-          </button>
-        )}
-        <br />
-        <button onClick={handleSavePDF} disabled={loading}>
-          Save as PDF
-        </button>
-      </div>
+        <div className="maincon">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            {/* <h2 style={{ flex: "1", marginBottom: "10px" }}>Add Note</h2> */}
+            <button
+              onClick={handleSavePDF}
+              disabled={loading}
+              style={{
+                backgroundColor: "transparent",
+                border: "none",
+                fontSize: "1.5em",
+                cursor: "pointer",
+                marginRight: "10px",
+              }}
+            >
+              <HiSave className="savepdf" />
+            </button>
+          </div>
+          <div
+            style={{
+              marginBottom: "10px",
+              position: "relative",
+              border: "none",
+              marginTop: "50px",
+            }}
+          >
+            <input
+              type="text"
+              className="title"
+              placeholder="Enter note title"
+              value={notes_title}
+              onChange={(e) => setTitle(e.target.value)}
+              disabled={loading}
+            />
+            <br />
+            <br />
+            <ReactQuill
+              theme="snow"
+              value={notes}
+              onChange={setNotes}
+              modules={{
+                toolbar: [
+                  ["bold", "italic", "underline"],
+                  [{ header: 1 }, { header: 2 }],
+                  [{ list: "ordered" }, { list: "bullet" }],
+                  [{ indent: "-1" }, { indent: "+1" }],
+                  [{ size: ["small", false, "large", "huge"] }],
+                  [{ font: [] }],
+                  [{ align: [] }],
+                  ["clean"],
+                  ["checkbox"],
+                ],
+              }}
+              readOnly={loading}
+            />
+          </div>
+          <br />
+          <br />
+        </div>
+        <div
+          className="add-save"
+          style={{
+            position: "absolute",
+            bottom: "40px",
+            right: "80px",
+            borderRadius: "7px",
+            border: "none",
+            justifyContent: "center",
+          }}
+        >
+          {!selectedNote && (
+            <button
+              onClick={handleAddNote}
+              disabled={loading}
+              style={{
+                fontSize: "1em",
+                cursor: "pointer",
+                border: "none",
+                backgroundColor: "black",
+                color: "white",
+                padding: "6px 8px",
+                borderRadius: "8px",
+                transition:
+                  "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                boxShadow: "0 0 8px rgba(255, 255, 255, 0.5)",
+              }}
+            >
+              {loading ? (
+                "Adding..."
+              ) : (
+                <>
+                  <IoAddCircleSharp className="add-icon" /> Add Note
+                </>
+              )}
+            </button>
+          )}
 
-      <br />
-      <button onClick={handleLogout}>Logout</button>
-      <br />
+          {selectedNote && (
+            <button
+              onClick={handleUpdateNote}
+              disabled={loading}
+              style={{
+                fontSize: "1em",
+                cursor: "pointer",
+                border: "none",
+                backgroundColor: "black",
+                color: "white",
+                padding: "6px 8px",
+                borderRadius: "8px",
+                transition:
+                  "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                boxShadow: "0 0 8px rgba(255, 255, 255, 0.5)",
+              }}
+            >
+              {loading ? (
+                "Updating..."
+              ) : (
+                <>
+                  <MdSave /> Save
+                </>
+              )}
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
