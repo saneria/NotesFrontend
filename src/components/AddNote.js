@@ -156,7 +156,7 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
             style={{
               position: "absolute",
               top: "50px",
-              right: "-1px",
+              left: "80%",
               borderRadius: "5px",
               boxShadow: "0 2px 4px rgba(0,0,0,.1)",
               zIndex: 1,
@@ -173,11 +173,11 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
                     padding: "8px 10px",
                     border: "none",
                     borderRadius: "5px",
-                    backgroundColor: "black", 
-                    color: "#fff", 
+                    backgroundColor: "black",
+                    color: "#fff",
                     cursor: "pointer",
                     transition: "background-color 0.3s",
-                    outline: "none", 
+                    outline: "none",
                   }}
                 >
                   <FaRegUser

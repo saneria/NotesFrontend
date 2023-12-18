@@ -17,106 +17,85 @@ function Register() {
   const navigate = useNavigate();
 
   const registerUser = async () => {
-    // Check if any individual field is empty
-    if (name === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Name field is required.",
-      });
-      return;
-    }
-
-    if (email === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Email field is required.",
-      });
-      return;
-    }
-
-    // Check if the entered email is a valid email address
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Please enter a valid email address.",
-      });
-      return;
-    }
-
-    if (password === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Password field is required.",
-      });
-      return;
-    }
-
-    if (confirmPassword === "") {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Confirm Password field is required.",
-      });
-      return;
-    }
-
-    // Check if password and confirm password match
-    if (password !== confirmPassword) {
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "Passwords do not match. Please check and try again.",
-      });
-      return;
-    }
-
-    const response = await fetch("http://appnote.test/api/user", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
-    });
-
-    const data = await response.json();
-
-    if (!data.ok) {
-      // Using SweetAlert for error messages
-      if (data.message === "Email already exists") {
+    try {
+      if (name === "" || email === "" || password === "" || confirmPassword === "") {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "Email already exists. Please use a different email address.",
+          text: "All fields are required.",
         });
-      } else {
-        // Displaying a generic error alert for other cases
-        Swal.fire({
-          icon: "error",
-          title: "Error",
-          text: "Registration unsuccessful. Please try again.",
-        });
+        return;
       }
-      setError(data.message);
-    } else {
-      // SweetAlert for successful registration
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Please enter a valid email address.",
+        });
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Passwords do not match. Please check and try again.",
+        });
+        return;
+      }
+
+      const response = await fetch("http://appnote.test/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!data.ok) {
+        if (data.message === "Email already exists") {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Email already exists. Please use a different email address.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Registration unsuccessful. Please try again.",
+          });
+        }
+        setError(data.message);
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "An unexpected error occurred. Please try again.",
+        });
+        console.error("Error registering user:", error);
+  
+      }
+    } catch (error) {
+
       Swal.fire({
         icon: "success",
         title: "Success",
         text: "Account created successfully!",
       });
       navigate("/");
+    
     }
   };
-
+ 
   return (
     <Container className="container">
       <div className="img" style={{ backgroundColor: "#393e46" }}>

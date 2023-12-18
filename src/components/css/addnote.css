@@ -132,3 +132,8 @@
       font-family: 'Nunito Sans', sans-serif;
     }
     
+    .delete-details {
+      margin-top: 15px;
+      margin-left: 15px;
+      display: flex;
+    }

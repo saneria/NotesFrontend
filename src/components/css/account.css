@@ -14,6 +14,7 @@
       border: none;
       display: flex;
     }
+
   .container {
     position: relative;
     width: 100vw;
@@ -60,22 +61,22 @@
     width: 80%;
   }
   
-  .content {
-    background-color: #e0e0e0;
-    border-radius: 10px;
-    padding: 120px;
-    width: 60%;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-    text-align: justify; 
-    line-height: 1.6; 
-    color: #333; 
-    transition: background-color 0.3s ease; 
+.content {
+  background: linear-gradient(to right, #b0b0b0, #e0e0e0, #b0b0b0); /* Adjust these colors to achieve the metallic effect */
+  border-radius: 10px;
+  padding: 120px;
+  width: 60%;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: justify;
+  line-height: 1.6;
+  color: #333;
+  transition: background 0.3s ease;
 
-    @media (max-width: 768px) {
-        width: 80%;
-        padding: 80px;
-    }
+  @media (max-width: 768px) {
+    width: 80%;
+    padding: 80px;
+  }
 }
 
 .content:hover {

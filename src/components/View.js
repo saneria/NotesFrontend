@@ -289,13 +289,16 @@ const View = () => {
             </div>
           </div>
 
-          {/* Deleted notes section */}
           {showDeletedNotes && (
             <div
               style={{
                 padding: "10px",
-                width: "20%",
-                height: "auto",
+                width: "48%",
+                height: "85vh",
+                backgroundColor: "white",
+                marginTop: "50px",
+                marginLeft: "45px",
+                borderRadius: "15px",
               }}
             >
               <h2>Deleted Notes</h2>
@@ -303,26 +306,48 @@ const View = () => {
                 <div
                   key={index}
                   style={{
+                    display: "flex",
+                    width: "85%",
+                    marginTop: "20px",
                     marginBottom: "20px",
+                    marginLeft: "10px",
                     borderBottom: "1px solid #ccc",
                     paddingBottom: "10px",
                     cursor: "pointer",
+                    backgroundColor: "#f8f8f8",
+                    borderRadius: "8px",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                    transition: "background-color 0.3s ease",
                   }}
                 >
-                  <strong>Note Title:</strong> {deletedNote.notes_title} <br />
-                  <strong>Deleted At:</strong>{" "}
-                  {new Intl.DateTimeFormat("en-US", {
-                    dateStyle: "medium",
-                    timeStyle: "medium",
-                  }).format(new Date(deletedNote.updated_at))}
-                  <br />
-                  <button
-                    onClick={() =>
-                      handleRestoreButtonClick(deletedNote.note_id)
-                    }
-                  >
-                    Restore
-                  </button>
+                  <div className="delete-details">
+                    <strong> {deletedNote.notes_title}</strong> <br />
+                    <normal>Deleted At:</normal>{" "}
+                    {new Intl.DateTimeFormat("en-US", {
+                      dateStyle: "medium",
+                      timeStyle: "medium",
+                    }).format(new Date(deletedNote.updated_at))}
+                    <br />
+                    <button
+                      onClick={() =>
+                        handleRestoreButtonClick(deletedNote.note_id)
+                      }
+                      style={{
+                        padding: "8px 16px",
+                        background: "black", 
+                        color: "#fff", 
+                        border: "none",
+                        borderRadius: "4px", 
+                        cursor: "pointer",
+                        transition: "background 0.3s ease", 
+                        marginLeft: "182px",
+                        marginBottom: "15px",
+
+                      }}
+                    >
+                      Restore
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
