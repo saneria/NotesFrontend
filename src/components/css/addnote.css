@@ -137,3 +137,29 @@
       margin-left: 15px;
       display: flex;
     }
+
+    
+  .maincon {
+    background-color: #f8f8f8; 
+    border: 1px solid #ddd; 
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    width: 350%;
+}
+
+.maincon:after {
+  content: "";
+  display: block;
+  height: 1px;
+  background-color: #ddd;
+  margin-top: 20px;
+}
+
+
+.maincon h2 {
+  color: #333;
+  font-size: 1.5em; 
+  margin-bottom: 15px;
+}
+

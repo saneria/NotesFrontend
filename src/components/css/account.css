@@ -23,33 +23,14 @@
     grid-template-columns: 1fr 1fr;
     text-align: center;
   }
-  
-  .img {
-    position: relative;
-    padding: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    border-radius: 3px; 
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-    background-color: #f8f8f8;
-    transition: transform 0.3s ease-in-out;
+  .img-logo {
+    margin: 200px;
+    margin-right: 280px;
   }
-
-  
-
-  .img-logo{
-    padding: 70px;
-
-  }
-  
   .img img {
-    width: 80%;
+    width: 40%;
     max-width: 450px;
     height: auto;
-    border-radius: 30%;
-    margin-right: 90px;
   }
 
   .backdrop {
@@ -129,7 +110,7 @@
   
   .btn {
     display: block;
-    width: 100%;
+    width: 95%;
     height: 50px;
     border-radius: 25px;
     outline: none;

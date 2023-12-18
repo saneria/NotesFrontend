@@ -240,20 +240,20 @@ const View = () => {
               <button
                 onClick={() => setShowDeletedNotes(!showDeletedNotes)}
                 style={{
-                  position: "absolute",
-                  border: "none",
-                  bottom: "0",
-                  left: "50%",
+                  position: "fixed",
+                  bottom: "25px",
+                  left: "150px",
                   transform: "translateX(-50%)",
                   alignItems: "center",
                   justifyContent: "center",
-                  padding: "3px", // Adjust the padding as needed
+                  padding: "10px",
+                  border: "none",
                   cursor: "pointer",
                   display: "flex",
                   borderRadius: "10px",
-                  backgroundColor: "transparent", // Remove the background color
+                  background: "none",
                 }}
-                className="trash-icon" // Add the class to apply hover effect
+                className="trash-icon" 
               >
                 {showDeletedNotes ? (
                   <HiOutlineTrash size={trashIconSize} />
@@ -267,7 +267,7 @@ const View = () => {
                       fontWeight: "bold",
                       fontFamily: "Nunito Sans",
                       fontSize: "1.2rem",
-                      color: "white", // Set font color to white
+                      color: "white", 
                     }}
                   >
                     Hide Trash
@@ -279,7 +279,7 @@ const View = () => {
                       fontWeight: "bold",
                       fontFamily: "Nunito Sans",
                       fontSize: "1.2rem",
-                      color: "white", // Set font color to white
+                      color: "white", 
                     }}
                   >
                     Trash
@@ -290,14 +290,16 @@ const View = () => {
           </div>
 
           {showDeletedNotes && (
+            
             <div
               style={{
                 padding: "10px",
-                width: "48%",
+                width: "100%",
                 height: "85vh",
                 backgroundColor: "white",
                 marginTop: "50px",
                 marginLeft: "45px",
+                marginRight: "45px",
                 borderRadius: "15px",
               }}
             >
@@ -320,7 +322,7 @@ const View = () => {
                     transition: "background-color 0.3s ease",
                   }}
                 >
-                  <div className="delete-details">
+                  <div className="delete-details"><br />
                     <strong> {deletedNote.notes_title}</strong> <br />
                     <normal>Deleted At:</normal>{" "}
                     {new Intl.DateTimeFormat("en-US", {
@@ -341,8 +343,7 @@ const View = () => {
                         cursor: "pointer",
                         transition: "background 0.3s ease", 
                         marginLeft: "182px",
-                        marginBottom: "15px",
-
+                        marginBottom: "15px", 
                       }}
                     >
                       Restore

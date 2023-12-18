@@ -10,6 +10,8 @@ import { RiAccountCircleFill } from "react-icons/ri";
 import { IoAddCircleSharp } from "react-icons/io5";
 import { MdSave } from "react-icons/md";
 import { HiSave } from "react-icons/hi";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { Dropdown } from "react-bootstrap";
 
 const AddNote = ({ selectedNote, updateSelectedNote }) => {
   const [notes, setNotes] = useState("");
@@ -137,7 +139,7 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
   };
 
   return (
-    <div className="wrapper">
+    <div>
       <div className="main" style={{ position: "relative" }}>
         <RiAccountCircleFill
           className="profile-icon"
@@ -151,64 +153,50 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
           }}
           onClick={toggleDropdown}
         />
-        {showDropdown && (
-          <div
+
+        <Dropdown
+          show={showDropdown}
+          style={{
+            position: "absolute",
+            top: "30px",  // Adjust this value to position the dropdown below the profile icon
+            left: "120px", // Adjust this value to position the dropdown next to the profile icon
+            borderRadius: "5px",
+            zIndex: 1,
+
+          }}
+        >
+          <Dropdown.Toggle
+            variant="primary"
+            id="dropdown-basic"
             style={{
-              position: "absolute",
-              top: "50px",
-              left: "80%",
-              borderRadius: "5px",
-              boxShadow: "0 2px 4px rgba(0,0,0,.1)",
-              zIndex: 1,
+              display: "none",
             }}
-          >
-            <ul style={{ listStyle: "none" }}>
-              <li>
-                <button
-                  onClick={handleProfile}
-                  disabled={loading}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "8px 10px",
-                    border: "none",
-                    borderRadius: "5px",
-                    backgroundColor: "black",
-                    color: "#fff",
-                    cursor: "pointer",
-                    transition: "background-color 0.3s",
-                    outline: "none",
-                  }}
-                >
-                  <FaRegUser
-                    style={{ fontSize: "1.2em", marginRight: "8px" }}
-                  />
-                </button>
-              </li>
-              <li>
-                <br />
-                <button
-                  onClick={handleLogout}
-                  disabled={loading}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    padding: "8px 10px",
-                    border: "none",
-                    borderRadius: "5px",
-                    backgroundColor: "black", // You can change the background color
-                    color: "#fff", // You can change the text color
-                    cursor: "pointer",
-                    transition: "background-color 0.3s",
-                    outline: "none", // Remove default button outline
-                  }}
-                >
-                  <TbLogout2 style={{ fontSize: "1.2em" }} />
-                </button>
-              </li>
-            </ul>
-          </div>
-        )}
+          ></Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Dropdown.Item onClick={handleProfile} disabled={loading}>
+              <FaRegUser
+                style={{
+                  fontSize: "1.2em",
+                  marginRight: "8px",
+                  display: "flex",
+                }}
+              />
+              User Profile
+            </Dropdown.Item>
+            <Dropdown.Item onClick={handleLogout} disabled={loading}>
+              <TbLogout2
+                style={{
+                  fontSize: "1.2em",
+                  marginRight: "8px",
+                  display: "flex",
+                }}
+              />
+              Logout
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+
         <div className="maincon">
           <div
             style={{
@@ -227,9 +215,19 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
                 fontSize: "1.5em",
                 cursor: "pointer",
                 marginRight: "10px",
+                position: "absolute",
+                width: "50px",
+                height: "80px",
+                bottom: "90px",
+                right: "110px",
               }}
             >
-              <HiSave className="savepdf" />
+              <HiSave
+                className="savepdf"
+                style={{
+                  fontSize: "1.5em",
+                }}
+              />
             </button>
           </div>
           <div
@@ -279,6 +277,8 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
             position: "absolute",
             bottom: "40px",
             right: "80px",
+            top: "60px",
+            left: "75px",
             borderRadius: "7px",
             border: "none",
             justifyContent: "center",
@@ -292,9 +292,9 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
                 fontSize: "1em",
                 cursor: "pointer",
                 border: "none",
-                backgroundColor: "black",
+                backgroundColor: "#292727",
                 color: "white",
-                padding: "6px 8px",
+                padding: "10px 18px",
                 borderRadius: "8px",
                 transition:
                   "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
@@ -305,7 +305,9 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
                 "Adding..."
               ) : (
                 <>
-                  <IoAddCircleSharp className="add-icon" /> Add Note
+                  <i className="bi bi-plus-lg text-white">
+                    <span style={{ marginLeft: "10px" }}>Add Note</span>
+                  </i>
                 </>
               )}
             </button>
@@ -319,9 +321,9 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
                 fontSize: "1em",
                 cursor: "pointer",
                 border: "none",
-                backgroundColor: "black",
+                backgroundColor: "#292727",
                 color: "white",
-                padding: "6px 8px",
+                padding: "10px 18px",
                 borderRadius: "8px",
                 transition:
                   "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
@@ -332,7 +334,9 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
                 "Updating..."
               ) : (
                 <>
-                  <MdSave /> Save
+                  <i className="bi bi-floppy text-white">
+                    <span style={{ marginLeft: "10px" }}>Save</span>
+                  </i>
                 </>
               )}
             </button>
