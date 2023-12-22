@@ -7,8 +7,6 @@ import "./css/style.css";
 import { TbLogout2 } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { RiAccountCircleFill } from "react-icons/ri";
-import { IoAddCircleSharp } from "react-icons/io5";
-import { MdSave } from "react-icons/md";
 import { HiSave } from "react-icons/hi";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Dropdown } from "react-bootstrap";
@@ -146,7 +144,7 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
           style={{
             position: "absolute",
             top: "30px",
-            right: "70px",
+            right: "80px",
             cursor: "pointer",
             width: "50px",
             height: "80px",
@@ -158,38 +156,53 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
           show={showDropdown}
           style={{
             position: "absolute",
-            top: "30px",  // Adjust this value to position the dropdown below the profile icon
-            left: "120px", // Adjust this value to position the dropdown next to the profile icon
-            borderRadius: "5px",
-            zIndex: 1,
-
+            top: "30px",
+            right: "160px",
+            zIndex: "999",
           }}
         >
           <Dropdown.Toggle
             variant="primary"
             id="dropdown-basic"
-            style={{
-              display: "none",
-            }}
           ></Dropdown.Toggle>
 
-          <Dropdown.Menu>
-            <Dropdown.Item onClick={handleProfile} disabled={loading}>
+          <Dropdown.Menu
+            style={{
+              backgroundColor: "rgb(57, 62, 70)",
+              padding: "8px 8px",
+              borderRadius: "10px",
+            }}
+          >
+            <Dropdown.Item
+              onClick={handleProfile}
+              disabled={loading}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                borderRadius: "5px",
+              }}
+            >
               <FaRegUser
                 style={{
-                  fontSize: "1.2em",
-                  marginRight: "8px",
-                  display: "flex",
+                  fontSize: "1.5em",
+                  marginRight: "13px",
                 }}
               />
               User Profile
             </Dropdown.Item>
-            <Dropdown.Item onClick={handleLogout} disabled={loading}>
+            <Dropdown.Item
+              onClick={handleLogout}
+              disabled={loading}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                borderRadius: "5px",
+              }}
+            >
               <TbLogout2
                 style={{
-                  fontSize: "1.2em",
+                  fontSize: "1.5em",
                   marginRight: "8px",
-                  display: "flex",
                 }}
               />
               Logout
@@ -219,7 +232,7 @@ const AddNote = ({ selectedNote, updateSelectedNote }) => {
                 width: "50px",
                 height: "80px",
                 bottom: "90px",
-                right: "110px",
+                right: "130px",
               }}
             >
               <HiSave

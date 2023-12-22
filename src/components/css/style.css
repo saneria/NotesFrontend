@@ -100,3 +100,8 @@
     margin-top: 5px;
 }
 
+
+.dropdown-item:hover {
+  background-color: rgb(57, 62, 70); /* Change this to your desired hover background color */
+  color: #c7ced5; /* Change this to your desired hover text color */
+}

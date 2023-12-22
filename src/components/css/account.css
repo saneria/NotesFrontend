@@ -23,14 +23,24 @@
     grid-template-columns: 1fr 1fr;
     text-align: center;
   }
+
   .img-logo {
     margin: 200px;
+
     margin-right: 280px;
+    transition: transform 0.3s ease-out; /* Add a smooth transition effect */
   }
+  
+  .img-logo:hover {
+    transform: scale(1.1); /* Increase the scale on hover to create a pop effect */
+  }
+  
   .img img {
     width: 40%;
     max-width: 450px;
     height: auto;
+
+
   }
 
   .backdrop {
