@@ -55,7 +55,7 @@ const View = () => {
         console.log("Note deleted successfully!");
         const deletedNote = notesData.find((note) => note.note_id === noteId);
         setDeletedNotes([...deletedNotes, deletedNote]);
-        fetchNote(); // Refresh the notes after deletion
+        fetchNote(); // refreshes the notes after deletion
       } else {
         console.error("Error deleting note");
       }
@@ -101,10 +101,8 @@ const View = () => {
     const isSelected = selectedNotes.includes(noteId);
 
     if (isSelected) {
-      // If the note is already selected, remove it from the selectedNotes array
       setSelectedNotes(selectedNotes.filter((id) => id !== noteId));
     } else {
-      // If the note is not selected, add it to the selectedNotes array
       setSelectedNotes([...selectedNotes, noteId]);
     }
   };
@@ -125,7 +123,6 @@ const View = () => {
     <div>
       <div>
         <div className="sidebar" style={{ display: "flex" }}>
-          {/* Active notes section */}
           <div
             className="sidebar-style"
             style={{
@@ -140,7 +137,7 @@ const View = () => {
             {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
             <h2 className="notes-heading">Notes</h2>
 
-            {/* Search input */}
+            {/* search*/}
             <input
               type="text"
               placeholder="Search notes"
@@ -195,7 +192,7 @@ const View = () => {
                   setEditMode(false);
                 }}
               >
-                {/* Checkbox */}
+                {/* checkbox */}
                 <input
                   type="checkbox"
                   checked={selectedNotes.includes(note.note_id)}
@@ -211,11 +208,11 @@ const View = () => {
                     }).format(new Date(note.updated_at))}
                   </span>{" "}
                   <br />
-                  {/* Add delete button here */}
+                  {/* delete button */}
                   {deleteButtonIndex === index && (
                     <button
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent the click event from propagating to the parent div
+                        e.stopPropagation(); // prevent the click event from propagating to the parent div
                         handleDeleteButtonClick(note.note_id);
                       }}
                       style={{
@@ -235,7 +232,7 @@ const View = () => {
               </div>
             ))}
 
-            {/* Toggle button for deleted notes */}
+            {/* toggle button for deleted notes */}
             <div className="trash-icon" style={{ position: "relative" }}>
               <button
                 onClick={() => setShowDeletedNotes(!showDeletedNotes)}
@@ -253,7 +250,7 @@ const View = () => {
                   borderRadius: "10px",
                   background: "none",
                 }}
-                className="trash-icon" 
+                className="trash-icon"
               >
                 {showDeletedNotes ? (
                   <HiOutlineTrash size={trashIconSize} />
@@ -267,7 +264,7 @@ const View = () => {
                       fontWeight: "bold",
                       fontFamily: "Nunito Sans",
                       fontSize: "1.2rem",
-                      color: "white", 
+                      color: "white",
                     }}
                   >
                     Hide Trash
@@ -279,7 +276,7 @@ const View = () => {
                       fontWeight: "bold",
                       fontFamily: "Nunito Sans",
                       fontSize: "1.2rem",
-                      color: "white", 
+                      color: "white",
                     }}
                   >
                     Trash
@@ -290,7 +287,6 @@ const View = () => {
           </div>
 
           {showDeletedNotes && (
-            
             <div
               style={{
                 padding: "10px",
@@ -322,7 +318,8 @@ const View = () => {
                     transition: "background-color 0.3s ease",
                   }}
                 >
-                  <div className="delete-details"><br />
+                  <div className="delete-details">
+                    <br />
                     <strong> {deletedNote.notes_title}</strong> <br />
                     <normal>Deleted At:</normal>{" "}
                     {new Intl.DateTimeFormat("en-US", {
@@ -336,14 +333,14 @@ const View = () => {
                       }
                       style={{
                         padding: "8px 16px",
-                        background: "black", 
-                        color: "#fff", 
+                        background: "black",
+                        color: "#fff",
                         border: "none",
-                        borderRadius: "4px", 
+                        borderRadius: "4px",
                         cursor: "pointer",
-                        transition: "background 0.3s ease", 
+                        transition: "background 0.3s ease",
                         marginLeft: "182px",
-                        marginBottom: "15px", 
+                        marginBottom: "15px",
                       }}
                     >
                       Restore

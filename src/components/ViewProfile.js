@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Card, Image } from 'react-bootstrap';
+import { Container, Button, Card, Image } from "react-bootstrap";
 import "./css/viewprofile.css";
 import { RiShieldUserFill } from "react-icons/ri";
 
@@ -24,17 +24,15 @@ const ViewProfile = ({ userId, closeModal }) => {
     fetchData();
   }, [userId]);
 
-  // Display loading spinner or other UI while data is being fetched
+  // Displays loading spinner while data is being fetched
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  // Display user data
   return (
     <Container className="con-pro">
       <div className="d-flex justify-content-center align-items-center">
         <Card>
-         
           <div className="upper">
             <Image
               src="https://i.imgur.com/Qtrsrk5.jpg"
@@ -42,8 +40,8 @@ const ViewProfile = ({ userId, closeModal }) => {
               alt="User cover"
             />
           </div>
-          <RiShieldUserFill  className="profile"/>
-          
+          <RiShieldUserFill className="profile" />
+
           <Card.Body className="mt-5 text-center">
             <Card.Title className="text">{userData.name}</Card.Title>
             <Card.Text className="text-muted d-block mb-2">
